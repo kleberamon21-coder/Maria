@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Ramon: A Única</title>
+    <style>
+        :root {
+            --primary-color: #ff2a6d;
+            --bg-color: #050505;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, #1a1a1a 0%, #050505 100%);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeIn 2s ease-in;
+        }
+
+        h1 { font-weight: 300; letter-spacing: 2px; }
+        span { color: var(--primary-color); font-weight: bold; }
+
+        /* Estrutura do Cubo */
+        .scene {
+            width: 200px;
+            height: 200px;
+            perspective: 600px;
+        }
+
+        .cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s ease-out;
+            animation: rotateCube 10s infinite linear;
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 2px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            background: rgba(255, 42, 109, 0.1);
+            box-shadow: inset 0 0 20px rgba(255, 42, 109, 0.5);
+            backface-visibility: hidden;
+        }
+
+        /* Posicionamento das Faces */
+        .front  { transform: rotateY(  0deg) translateZ(100px); background: rgba(0,0,0,0.8); }
+        .back   { transform: rotateY(180deg) translateZ(100px); }
+        .right  { transform: rotateY( 90deg) translateZ(100px); }
+        .left   { transform: rotateY(-90deg) translateZ(100px); }
+        .top    { transform: rotateX( 90deg) translateZ(100px); }
+        .bottom { transform: rotateX(-90deg) translateZ(100px); }
+
+        /* Onde os nomes passam */
+        #minha_mulher {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        button {
+            margin-top: 60px;
+            padding: 12px 30px;
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        button:hover {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 0 20px var(--primary-color);
+        }
+
+        @keyframes rotateCube {
+            from { transform: rotateX(0deg) rotateY(0deg); }
+            to { transform: rotateX(360deg) rotateY(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>O mundo tem <span>bilhões</span> de mulheres. Só uma faz o pau do Ramon latejar...</h1>
+    </div>
+
+    <div class="scene">
+        <div class="cube" id="cube">
+            <div class="cube-face front"><span id="minha_mulher">???</span></div>
+            <div class="cube-face back">AMOR</div>
+            <div class="cube-face right">VIDA</div>
+            <div class="cube-face left">DESTINO</div>
+            <div class="cube-face top">ÚNICA</div>
+            <div class="cube-face bottom">R + ?</div>
+        </div>
+    </div>
+
+    <button onclick="encontrarAMulher()">Quem será??</button>
+
+    <script>
+        const nomesAleatorios = ["Ana", "Julia", "Beatriz", "Carla", "Fernanda", "Mariana", "Gabriela", "Larissa", "Sofia", "Isabela", "Camila", "Leticia", "Amanda", "Bruna", "Paula"];
+        
+        function encontrarAMulher() {
+            const display = document.getElementById('minha_mulher');
+            const cube = document.getElementById('cube');
+            let contador = 0;
+            
+            // "Back-end" lógico: Defina o nome da mulher amada aqui
+            const MULHER_AMADA = "Maria Nunes"; 
+
+            // Estilização durante a busca
+            cube.style.animation = "rotateCube 0.5s infinite linear";
+            
+            const buscaInterativa = setInterval(() => {
+                // Sorteia um nome aleatório da lista
+                display.innerText = nomesAleatorios[Math.floor(Math.random() * nomesAleatorios.length)];
+                contador++;
+
+                // Após "milhares" (simulado por tempo/iterações)
+                if (contador > 40) {
+                    clearInterval(buscaInterativa);
+                    
+                    // Resultado Final
+                    display.innerText = MULHER_AMADA;
+                    cube.style.animation = "none";
+                    cube.style.transform = "rotateY(0deg)"; // Para o cubo na face frontal
+                    
+                    alert("A busca encerrou. Seu coração já sabia a resposta.");
+                }
+            }, 80);
+        }
+    </script>
+</body>
+</html>
